@@ -13,8 +13,11 @@ if [ "$CONTAINER_ROLE" = "php" ]; then
 
     echo "✅ MySQL est disponible !"
 
-    echo "🚀 Exécution des migrations Doctrine..."
+    echo "🚀 Exécution des migrations Doctrine pour la base principale..."
     php bin/console doctrine:migrations:migrate --no-interaction
+
+    echo "🚀 Exécution des migrations Doctrine pour la base de test..."
+    php bin/console doctrine:migrations:migrate --env=test --no-interaction
 fi
 
 echo "📢 Lancement de $@"
