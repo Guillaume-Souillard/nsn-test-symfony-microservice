@@ -2,11 +2,28 @@
 
 namespace App\Entity;
 
-use App\Repository\CryptoPriceRepository;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use App\State\CryptoPriceProvider;
+use App\State\CryptoPriceListProvider;
 use Doctrine\DBAL\Types\Types;
+use App\Repository\CryptoPriceRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CryptoPriceRepository::class)]
+#[ApiResource(
+    operations: [
+        new GetCollection(
+            provider: CryptoPriceListProvider::class,
+        ),
+        new Get(
+            uriVariables: ['ticker'],
+            requirements: ['ticker', '[A-Z0-9]+'],
+            provider: CryptoPriceProvider::class,
+        )
+    ]
+)]
 class CryptoPrice
 {
     #[ORM\Id]
@@ -39,26 +56,26 @@ class CryptoPrice
         return $this->id;
     }
 
+    public function setTicker(string $ticker): static
+    {
+        $this->ticker = strtoupper($ticker);
+        return $this;
+    }
+
     public function getTicker(): ?string
     {
         return $this->ticker;
     }
 
-    public function setTicker(string $ticker): static
+    public function setPrice(float $priceInDollars): static
     {
-        $this->ticker = $ticker;
+        $this->price = (int) round($priceInDollars * 100);
         return $this;
     }
 
-    public function getPrice(): ?int
+    public function getPrice(): float
     {
-        return $this->price;
-    }
-
-    public function setPrice(int $price): static
-    {
-        $this->price = $price;
-        return $this;
+        return $this->price / 100;
     }
 
     public function getProvider(): ?string

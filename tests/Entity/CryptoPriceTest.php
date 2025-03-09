@@ -16,10 +16,10 @@ class CryptoPriceTest extends TestCase
 
     public function testGettersReturnCorrectValues()
     {
-        $cryptoPrice = new CryptoPrice('ETHUSD', 20000, 'coinmarketcap');
+        $cryptoPrice = new CryptoPrice('ethusd', 20000, 'coinmarketcap');
 
         $this->assertEquals('ETHUSD', $cryptoPrice->getTicker());
-        $this->assertEquals(20000, $cryptoPrice->getPrice());
+        $this->assertEquals(200.0, $cryptoPrice->getPrice());
         $this->assertEquals('coinmarketcap', $cryptoPrice->getProvider());
         $this->assertInstanceOf(\DateTimeInterface::class, $cryptoPrice->getUpdatedAt());
     }
@@ -53,5 +53,39 @@ class CryptoPriceTest extends TestCase
         $cryptoPrice->setUpdatedAt($newDate);
 
         $this->assertEquals($newDate, $cryptoPrice->getUpdatedAt(), 'The updatedAt setter should correctly modify the timestamp');
+    }
+
+    public function testPriceConversion()
+    {
+        $cryptoPrice = new CryptoPrice('BTCUSD', 12345, 'coingecko');
+
+        $this->assertEquals(123.45, $cryptoPrice->getPrice(), 'The price should be correctly converted from cents to dollars');
+    }
+
+    public function testPriceSetterStoresAsCents()
+    {
+        $cryptoPrice = new CryptoPrice('BTCUSD', 0, 'coingecko');
+
+        $cryptoPrice->setPrice(199.99);
+
+        $this->assertEquals(19999, $cryptoPrice->getPrice() * 100, 'The price should be stored in cents');
+    }
+
+    public function testSetTickerConvertsToUppercase()
+    {
+        $cryptoPrice = new CryptoPrice('BTCUSD', 10232, 'coingecko');
+
+        $cryptoPrice->setTicker('ethusd');
+
+        $this->assertEquals('ETHUSD', $cryptoPrice->getTicker(), 'The ticker should always be stored in uppercase');
+    }
+
+    public function testUpdatedAtDoesNotChangeIfNotSet()
+    {
+        $cryptoPrice = new CryptoPrice('BTCUSD', 10232, 'coingecko');
+
+        $initialUpdatedAt = $cryptoPrice->getUpdatedAt();
+        sleep(1);
+        $this->assertEquals($initialUpdatedAt, $cryptoPrice->getUpdatedAt(), 'updatedAt should not change unless explicitly set');
     }
 }

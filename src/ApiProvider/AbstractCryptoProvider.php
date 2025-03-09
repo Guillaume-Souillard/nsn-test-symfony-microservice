@@ -36,7 +36,7 @@ abstract class AbstractCryptoProvider implements CryptoProviderInterface
         foreach ($cryptos as $crypto) {
             $this->cryptoPriceRepository->updateOrCreate(
                 $crypto['ticker'],
-                (int) ($crypto['price'] * 100), // stock in cents
+                (int) ($crypto['price']),
                 $this->getProviderName()
             );
         }

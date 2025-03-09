@@ -30,7 +30,7 @@ class CryptoPriceRepositoryTest extends KernelTestCase
         ]);
 
         $this->assertNotNull($storedCrypto);
-        $this->assertEquals(50000, $storedCrypto->getPrice());
+        $this->assertEquals(500.0, $storedCrypto->getPrice());
     }
 
     public function testUpdateOrCreateUpdatesExistingEntry(): void
