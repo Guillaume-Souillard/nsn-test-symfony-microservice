@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Command;
+namespace App\Tests\Unit\Command;
 
 use App\Command\FetchAllCryptoPricesCommand;
 use App\Message\FetchCryptoPricesMessage;

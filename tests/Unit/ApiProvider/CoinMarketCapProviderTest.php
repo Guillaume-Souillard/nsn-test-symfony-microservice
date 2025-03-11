@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Tests\ApiProvider;
+namespace App\Tests\Unit\ApiProvider;
 
-use App\ApiProvider\CoinGeckoProvider;
+use App\ApiProvider\CoinMarketCapProvider;
+use App\Repository\CryptoPriceRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
-use Doctrine\ORM\EntityManagerInterface;
-use App\Repository\CryptoPriceRepository;
 
-class CoinGeckoProviderTest extends TestCase
+class CoinMarketCapProviderTest extends TestCase
 {
-    private CoinGeckoProvider $coinGeckoProvider;
+    private CoinMarketCapProvider $coinMarketCapProvider;
     private HttpClientInterface $httpClient;
     private ResponseInterface $response;
     private EntityManagerInterface $entityManager;
@@ -28,11 +28,11 @@ class CoinGeckoProviderTest extends TestCase
         $this->entityManager = $this->createMock(EntityManagerInterface::class);
         $this->cryptoPriceRepository = $this->createMock(CryptoPriceRepository::class);
 
-        $this->coinGeckoProvider = new CoinGeckoProvider(
+        $this->coinMarketCapProvider = new CoinMarketCapProvider(
             $this->httpClient,
             $this->entityManager,
             $this->cryptoPriceRepository,
-            'https://api.coingecko.com/api/v3',
+            'https://pro-api.coinmarketcap.com/v1',
             'dummy_api_key'
         );
     }
@@ -40,13 +40,23 @@ class CoinGeckoProviderTest extends TestCase
     public function testFetchAllPrices(): void
     {
         $mockData = [
-            [
-                "symbol" => "btc",
-                "current_price" => 60000
-            ],
-            [
-                "symbol" => "eth",
-                "current_price" => 4000
+            'data' => [
+                [
+                    "symbol" => "BTC",
+                    "quote" => [
+                        "USD" => [
+                            "price" => 60000
+                        ]
+                    ]
+                ],
+                [
+                    "symbol" => "ETH",
+                    "quote" => [
+                        "USD" => [
+                            "price" => 4000
+                        ]
+                    ]
+                ]
             ]
         ];
 
@@ -54,7 +64,7 @@ class CoinGeckoProviderTest extends TestCase
             ->method('toArray')
             ->willReturn($mockData);
 
-        $prices = $this->coinGeckoProvider->fetchAllPrices();
+        $prices = $this->coinMarketCapProvider->fetchAllPrices();
 
         $this->assertCount(2, $prices);
         $this->assertEquals('BTCUSD', $prices[0]['ticker']);
@@ -65,6 +75,6 @@ class CoinGeckoProviderTest extends TestCase
 
     public function testGetProviderName(): void
     {
-        $this->assertEquals('coingecko', $this->coinGeckoProvider->getProviderName());
+        $this->assertEquals('coinmarketcap', $this->coinMarketCapProvider->getProviderName());
     }
 }
