@@ -46,7 +46,7 @@ class CryptoPrice
     public function __construct(string $ticker, int $price, string $provider)
     {
         $this->ticker = strtoupper($ticker);
-        $this->price = $price;
+        $this->setPrice($price);
         $this->provider = $provider;
         $this->updatedAt = new \DateTime();
     }

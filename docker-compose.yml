@@ -81,6 +81,8 @@ services:
     container_name: symfony_cron
     restart: always
     working_dir: /var/www/html
+    volumes:
+      - .:/var/www/html
     depends_on:
       - php
     command: >
