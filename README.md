@@ -55,7 +55,7 @@ Soit vous éxectuer la commande Symfony `php bin/console app:fetch-all-crypto-pr
 
 # Lire la data : 
 
-Rendez-vous ici : `http://localhost:8080/api` pour parcourir le swagger de ApiPlatform.
+Rendez-vous ici : `http://localhost:8080/api` pour parcourir le swagger de ApiPlatform (bien attendre que le container PHP a fini d'installer tout le nécessaire. voir entrypoint.sh pour plus d'infos)
 
 # Lancer les tests unitaires : 
 
