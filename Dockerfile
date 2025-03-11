@@ -21,8 +21,6 @@ WORKDIR /var/www/html
 
 COPY . .
 
-RUN composer install --no-scripts --no-autoloader
-
 EXPOSE 9000
 
 COPY entrypoint.sh /entrypoint.sh

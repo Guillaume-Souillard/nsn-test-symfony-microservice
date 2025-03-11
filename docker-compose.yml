@@ -69,10 +69,10 @@ services:
     restart: always
     working_dir: /var/www/html
     depends_on:
-      - redis
       - php
-    command: >
-      php bin/console messenger:consume async --no-interaction --memory-limit=128M -vv
+      - redis
+    environment:
+      CONTAINER_ROLE: worker
 
   cronjob:
     build: .
