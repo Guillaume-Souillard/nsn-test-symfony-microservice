@@ -71,6 +71,8 @@ services:
     depends_on:
       - php
       - redis
+    volumes:
+      - .:/var/www/html
     environment:
       CONTAINER_ROLE: worker
 
