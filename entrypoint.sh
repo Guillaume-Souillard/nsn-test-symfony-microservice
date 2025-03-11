@@ -16,7 +16,10 @@ if [ "$CONTAINER_ROLE" = "php" ]; then
     echo "🚀 Exécution des migrations Doctrine pour la base principale..."
     php bin/console doctrine:migrations:migrate --no-interaction
 
-    echo "🚀 Exécution des migrations Doctrine pour la base de test..."
+    echo "🚀 Préparation de la base de test..."
+    echo "🚀 Suppression et recréation de la base de test..."
+    php bin/console doctrine:database:drop --env=test --force || true
+    php bin/console doctrine:database:create --env=test
     php bin/console doctrine:migrations:migrate --env=test --no-interaction
 fi
 
