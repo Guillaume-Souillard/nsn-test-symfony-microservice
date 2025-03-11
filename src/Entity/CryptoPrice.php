@@ -43,7 +43,7 @@ class CryptoPrice
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $updatedAt = null;
 
-    public function __construct(string $ticker, int $price, string $provider)
+    public function __construct(string $ticker, float $price, string $provider)
     {
         $this->ticker = strtoupper($ticker);
         $this->setPrice($price);
