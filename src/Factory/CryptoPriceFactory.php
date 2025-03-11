@@ -32,7 +32,7 @@ final class CryptoPriceFactory extends PersistentProxyObjectFactory
     protected function defaults(): array|callable
     {
         return [
-            'price' => self::faker()->randomNumber(),
+            'price' => self::faker()->randomNumber(1, 100000),
             'provider' => self::faker()->text(255),
             'ticker' => self::faker()->text(255),
             'updatedAt' => self::faker()->dateTime(),

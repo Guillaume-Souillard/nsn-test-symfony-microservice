@@ -69,7 +69,7 @@ class CryptoPrice
 
     public function setPrice(float $priceInDollars): static
     {
-        $this->price = (int) round($priceInDollars * 100);
+        $this->price = (int) ($priceInDollars * 100);
         return $this;
     }
 

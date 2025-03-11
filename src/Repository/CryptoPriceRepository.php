@@ -16,7 +16,7 @@ class CryptoPriceRepository extends ServiceEntityRepository
     /**
      * Met à jour ou crée un CryptoPrice basé sur le ticker et le provider.
      */
-    public function updateOrCreate(string $ticker, int $price, string $provider): CryptoPrice
+    public function updateOrCreate(string $ticker, float $price, string $provider): CryptoPrice
     {
         $entityManager = $this->getEntityManager();
 

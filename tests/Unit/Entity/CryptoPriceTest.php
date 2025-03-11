@@ -16,7 +16,7 @@ class CryptoPriceTest extends TestCase
 
     public function testGettersReturnCorrectValues()
     {
-        $cryptoPrice = new CryptoPrice('ethusd', 20000, 'coinmarketcap');
+        $cryptoPrice = new CryptoPrice('ethusd', 200, 'coinmarketcap');
 
         $this->assertEquals('ETHUSD', $cryptoPrice->getTicker());
         $this->assertEquals(200.0, $cryptoPrice->getPrice());
@@ -53,13 +53,6 @@ class CryptoPriceTest extends TestCase
         $cryptoPrice->setUpdatedAt($newDate);
 
         $this->assertEquals($newDate, $cryptoPrice->getUpdatedAt(), 'The updatedAt setter should correctly modify the timestamp');
-    }
-
-    public function testPriceConversion()
-    {
-        $cryptoPrice = new CryptoPrice('BTCUSD', 12345, 'coingecko');
-
-        $this->assertEquals(123.45, $cryptoPrice->getPrice(), 'The price should be correctly converted from cents to dollars');
     }
 
     public function testPriceSetterStoresAsCents()

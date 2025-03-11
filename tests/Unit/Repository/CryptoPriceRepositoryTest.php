@@ -22,7 +22,7 @@ class CryptoPriceRepositoryTest extends KernelTestCase
 
     public function testUpdateOrCreateCreatesNewEntry(): void
     {
-        $this->cryptoPriceRepository->updateOrCreate('BTCUSD', 50000, 'coingecko');
+        $this->cryptoPriceRepository->updateOrCreate('BTCUSD', 500, 'coingecko');
 
         $storedCrypto = $this->cryptoPriceRepository->findOneBy([
             'ticker' => 'BTCUSD',

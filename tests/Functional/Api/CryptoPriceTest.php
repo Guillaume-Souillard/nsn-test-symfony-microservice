@@ -14,7 +14,7 @@ class CryptoPriceTest extends ApiTestCase
 
     public function testGetCryptoPrice(): void
     {
-        CryptoPriceFactory::createMany(5, ['ticker' => 'BTCUSD', 'price' => 45000 * 100]);
+        CryptoPriceFactory::createMany(5, ['ticker' => 'BTCUSD', 'price' => 45000]);
 
         $client = static::createClient();
         $response = $client->request('GET', '/api/crypto_prices/BTCUSD');

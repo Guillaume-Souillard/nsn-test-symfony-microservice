@@ -37,7 +37,7 @@ COINGECKO_API_KEY="CLE_API_CG"
 ###< API CONFIGURATION ###
 ```
 
-Je vous ai envoyé mes clé api par mail pour le projet.
+Je vous ai envoyé mes clés api par mail pour le projet.
 
 Ensuite, il suffit de lancer : 
 
@@ -56,3 +56,7 @@ Soit vous éxectuer la commande Symfony `php bin/console app:fetch-all-crypto-pr
 # Lire la data : 
 
 Rendez-vous ici : `http://localhost:8080/api` pour parcourir le swagger de ApiPlatform.
+
+# Lancer les tests unitaires : 
+
+Dans le bash de symfony-php, lancer `php vendor/bin/phpunit`  
