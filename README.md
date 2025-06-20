@@ -1,10 +1,4 @@
-# Test NSN Microservice Symfony
-
-Voici le deuxième test technique sur lequel il fallait développer un microservice avec Symfony.
-
-Je suis parti de votre idée de taper des API des marchés financiés.
-
-Je l'ai orienté cryptomonnaie.
+# Microservice Symfony pour aller chercher les prix crypto
 
 L'idée de l'app est simple, aggrégé via plusieurs providers la data et afficher la moyenne des prix de ces différents providers.
 
